@@ -15,23 +15,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var window: NSWindow!
 
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        if let button = statusItem.button {
-            button.image = NSImage(named: "StatusBarButtonImage")
-            button.action = #selector(self.printQuote)
-        }
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        initializeMenu()
     }
     
-    func printQuote(sender:AnyObject) {
-        let quoteText = "Hello"
-        let quoteAuthor = "Hevets"
+    // MARK:
+    func initializeMenu() {
+        setupMenuItems()
+    }
+    
+    func setupMenuItems() {
+        if let button = statusItem.button {
+            button.title = "999"
+//            button.image = NSImage(named: "StatusBarButtonImage")
+        }
         
-        print("\(quoteText) \n--'\(quoteAuthor)'")
+        let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "APM Score", action: #selector(self.apmScore), keyEquivalent: "a"))
+        menu.addItem(NSMenuItem(title: "Quit", action: #selector(self.quitApm), keyEquivalent: "q"))
+        statusItem.menu = menu
+    }
+    
+    func apmScore() {
+        print("Something")
+    }
+    
+    func quitApm() {
+        NSApplication.shared().terminate(self)
     }
 
 }
